@@ -6,9 +6,10 @@ import subprocess
 from datetime import datetime
 from PyQt5.QtWidgets import (
     QApplication, QWidget, QVBoxLayout, QHBoxLayout, QPushButton,
-    QLineEdit, QTextEdit, QLabel, QScrollArea, QFrame
+    QLineEdit, QTextEdit, QLabel, QScrollArea, QFrame, QMainWindow, QAction, QToolBar
 )
 from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QIcon
 from PyQt5.QtGui import QDesktopServices, QTextOption
 from PyQt5.QtWidgets import QSizePolicy
 
@@ -42,15 +43,23 @@ def buscar_oportunidades(config_path):
     return lista_ordenada
 
 # Widget principal
-class FapespGUI(QWidget):
+class FapespGUI(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("FAPESP opportunities")
+        self.setWindowTitle(about.__program_name__)
         self.setMinimumSize(600, 400)
 
-        self.layout = QVBoxLayout()
-        self.setLayout(self.layout)
-
+        ## Icon
+        # Get base directory for icons
+        base_dir_path = os.path.dirname(os.path.abspath(__file__))
+        self.icon_path = os.path.join(base_dir_path, 'icons', 'logo.png')
+        self.setWindowIcon(QIcon(self.icon_path)) 
+        
+        # 
+        central_widget = QWidget()
+        self.layout = QVBoxLayout(central_widget)
+        self.setCentralWidget(central_widget)
+        
         # Caminho do arquivo de configuração
         # Linha única: [ QLabel | QLineEdit (expande) | QPushButton (compacto) ]
         linha_caminho = QHBoxLayout()
@@ -85,8 +94,37 @@ class FapespGUI(QWidget):
         self.result_area.setWidget(self.result_widget)
         self.layout.addWidget(self.result_area)
     
+        # Adiciona a toolbar
+        self.create_toolbar()
+        
         self.buscar()
 
+
+    def create_toolbar(self):
+        toolbar = QToolBar("Main Toolbar")
+        self.addToolBar(toolbar)
+        toolbar.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
+        
+        # 
+        about_action = QAction(QIcon.fromTheme("help-about"),"About", self)
+        about_action.triggered.connect(self.open_about)
+        about_action.setToolTip("Show the information of program.")
+        toolbar.addAction(about_action)
+
+    def open_about(self):
+        data={
+            "version": about.__version__,
+            "package": about.__package__,
+            "program_name": about.__program_name__,
+            "author": about.__author__,
+            "email": about.__email__,
+            "description": about.__description__,
+            "url_source": about.__url_source__,
+            "url_funding": about.__url_funding__,
+            "url_bugs": about.__url_bugs__
+        }
+        show_about_window(data,self.icon_path)
+        
     def abrir_editor(self):
         if os.name == 'nt':  # Windows
             os.startfile(CONFIG_PATH)
