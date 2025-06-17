@@ -12,6 +12,8 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon
 from PyQt5.QtGui import QDesktopServices, QTextOption
 from PyQt5.QtWidgets import QSizePolicy
+from PyQt5.QtGui import QDesktopServices
+from PyQt5.QtCore import QUrl
 
 import fapesp_opportunities.modules.configure as configure 
 import fapesp_opportunities.modules.fapesp as fapesp
@@ -110,6 +112,16 @@ class FapespGUI(QMainWindow):
         about_action.triggered.connect(self.open_about)
         about_action.setToolTip("Show the information of program.")
         toolbar.addAction(about_action)
+        
+        # 
+        oport_action = QAction(QIcon.fromTheme("applications-internet"),"Oportunities", self)
+        oport_action.triggered.connect(self.open_oportunities)
+        oport_action.setToolTip("Open the FAPESP site with oportunities.")
+        toolbar.addAction(oport_action)
+
+    def open_oportunities(self):
+        conf = configure.load_config(CONFIG_PATH)
+        QDesktopServices.openUrl(QUrl(conf["url"]))
 
     def open_about(self):
         data={
