@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "fapesp_opportunities"
+version = "0.1.1"
+description = "Program to list FAPESP opportunities"
+readme = "README.md"
+authors = [{name = "Fernando Pujaico Rivera", email = "fernando.pujaico.rivera@gmail.com"}]
+maintainers = [{name = "Fernando Pujaico Rivera", email = "fernando.pujaico.rivera@gmail.com"}]
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+license = "GPL-3.0-only WITH Classpath-Exception-2.0 OR BSD-3-Clause"
+license-files = ["LICENSE"]
+keywords = ["writing", "translate"]
+dependencies = [
+    "PyQt5",
+    "requests",
+    "beautifulsoup4"
+]
+
+[project.urls]
+"Bug Reports" = "https://github.com/trucomanx/FapespOpportunities/issues"
+"Funding" = "https://trucomanx.github.io/en/funding.html"
+"Source" = "https://github.com/trucomanx/FapespOpportunities"
+
+[project.scripts]
+"fapesp-opportunities" = "fapesp_opportunities.program:main"
+
+[tool.setuptools]
+packages = ["fapesp_opportunities", "fapesp_opportunities.modules"]
+
+[tool.setuptools.package-data]
+"fapesp_opportunities" = ["icons/logo.png"]
