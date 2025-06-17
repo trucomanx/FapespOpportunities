@@ -1,12 +1,12 @@
-# {PROGRAM_NAME}
+# fapesp-opportunities
 
-{SUMMARY}
+Program to list FAPESP opportunities
 
 ## Testar program
 
 ```bash
 cd src
-python3 -m {MODULE_NAME}.program
+python3 -m fapesp_opportunities.program
 ```
 
 ## Upload to PYPI
@@ -21,37 +21,37 @@ twine upload dist/*
 
 ## Install from PYPI
 
-The homepage in pipy is https://pypi.org/project/{PROGRAM_NAME}/
+The homepage in pipy is https://pypi.org/project/fapesp-opportunities/
 
 ```bash
-pip install --upgrade {PROGRAM_NAME}
+pip install --upgrade fapesp-opportunities
 ```
 
 Using:
 
 ```bash
-{PROGRAM_NAME}
+fapesp-opportunities
 ```
 
 ## Install from source
-Installing `{PROGRAM_NAME}` program
+Installing `fapesp-opportunities` program
 
 ```bash
-git clone https://github.com/trucomanx/{REPOSITORY_NAME}.git
-cd {REPOSITORY_NAME}
+git clone https://github.com/trucomanx/FapespOpportunities.git
+cd FapespOpportunities
 pip install -r requirements.txt
 cd src
 python3 setup.py sdist
-pip install dist/{MODULE_NAME}-*.tar.gz
+pip install dist/fapesp_opportunities-*.tar.gz
 ```
 Using:
 
 ```bash
-{PROGRAM_NAME}
+fapesp-opportunities
 ```
 
 ## Uninstall
 
 ```bash
-pip uninstall {MODULE_NAME}
+pip uninstall fapesp_opportunities
 ```

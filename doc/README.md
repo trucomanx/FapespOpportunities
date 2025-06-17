@@ -1,4 +1,4 @@
 # Documentation
 
-Go to `Configure` to open the `~/config/{MODULE_NAME}/config.json` file. 
+Go to `Configure` to open the `~/config/fapesp_opportunities/config.json` file. 
 

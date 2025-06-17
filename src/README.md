@@ -1,6 +1,6 @@
-# {PROGRAM_NAME}
+# fapesp-opportunities
 
-{SUMMARY}
+Program to list FAPESP opportunities
 
 ![logo](screenshot.png)
 
@@ -10,21 +10,21 @@ To install the package from `PyPI`, follow the instructions below:
 
 
 ```bash
-pip install --upgrade {PROGRAM_NAME}
+pip install --upgrade fapesp-opportunities
 ```
 
-Execute `which {PROGRAM_NAME}` to see where it was installed, probably in `/home/USERNAME/.local/bin/{PROGRAM_NAME}`.
+Execute `which fapesp-opportunities` to see where it was installed, probably in `/home/USERNAME/.local/bin/fapesp-opportunities`.
 
 ### Using
 
 To start, use the command below:
 
 ```bash
-{PROGRAM_NAME}
+fapesp-opportunities
 ```
 ## 2. More information
 
-If you want more information [README.extras.md](https://github.com/trucomanx/{REPOSITORY_NAME}/blob/main/README.extras.md)
+If you want more information [README.extras.md](https://github.com/trucomanx/FapespOpportunities/blob/main/README.extras.md)
 
 ## 3. Buy me a coffee
 

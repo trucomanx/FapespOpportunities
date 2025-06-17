@@ -7,7 +7,7 @@ import sys
 here = pathlib.Path(__file__).parent.resolve()
 sys.path.insert(0, str(here))
 
-from __MODULE_NAME__.about import (
+from fapesp_opportunities.about import (
     __version__,
     __package__,
     __program_name__,

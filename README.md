@@ -1,4 +1,4 @@
-# {PROGRAM_NAME}
+# fapesp-opportunities
 
 {SUMMARY}
 
@@ -10,17 +10,17 @@ To install the package from `PyPI`, follow the instructions below:
 
 
 ```bash
-pip install --upgrade {PROGRAM_NAME}
+pip install --upgrade fapesp-opportunities
 ```
 
-Execute `which {PROGRAM_NAME}` to see where it was installed, probably in `/home/USERNAME/.local/bin/{PROGRAM_NAME}`.
+Execute `which fapesp-opportunities` to see where it was installed, probably in `/home/USERNAME/.local/bin/fapesp-opportunities`.
 
 ### Using
 
 To start, use the command below:
 
 ```bash
-{PROGRAM_NAME}
+fapesp-opportunities
 ```
 ## 2. More information
 
