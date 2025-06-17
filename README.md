@@ -1,6 +1,6 @@
 # fapesp-opportunities
 
-{SUMMARY}
+Program to list FAPESP opportunities
 
 ![logo](screenshot.png)
 

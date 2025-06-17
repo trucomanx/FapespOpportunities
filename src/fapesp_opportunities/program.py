@@ -1,5 +1,7 @@
 import os
 import json
+import sys
+import signal
 import subprocess
 from datetime import datetime
 from PyQt5.QtWidgets import (
@@ -12,6 +14,10 @@ from PyQt5.QtWidgets import QSizePolicy
 
 import fapesp_opportunities.modules.configure as configure 
 import fapesp_opportunities.modules.fapesp as fapesp
+import fapesp_opportunities.about as about
+
+from fapesp_opportunities.desktop import create_desktop_file, create_desktop_directory, create_desktop_menu
+from fapesp_opportunities.modules.wabout  import show_about_window
 
 # Caminho para o arquivo de configuração
 CONFIG_PATH = os.path.expanduser("~/.config/fapesp_opportunities/config.json")
@@ -155,12 +161,33 @@ class FapespGUI(QWidget):
 
         return card
 
-
-# Execução
-if __name__ == "__main__":
-    import sys
+    
+def main():
+    signal.signal(signal.SIGINT, signal.SIG_DFL)
+    
+    create_desktop_directory()    
+    create_desktop_menu()
+    create_desktop_file('~/.local/share/applications')
+    
+    for n in range(len(sys.argv)):
+        if sys.argv[n] == "--autostart":
+            create_desktop_directory(overwrite = True)
+            create_desktop_menu(overwrite = True)
+            create_desktop_file('~/.config/autostart', overwrite=True)
+            return
+        if sys.argv[n] == "--applications":
+            create_desktop_directory(overwrite = True)
+            create_desktop_menu(overwrite = True)
+            create_desktop_file('~/.local/share/applications', overwrite=True)
+            return
+    
     app = QApplication(sys.argv)
+    app.setApplicationName(about.__package__) 
     gui = FapespGUI()
     gui.show()
     sys.exit(app.exec_())
 
+
+# Execução
+if __name__ == "__main__":
+    main()
