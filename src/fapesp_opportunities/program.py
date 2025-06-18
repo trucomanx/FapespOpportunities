@@ -150,10 +150,11 @@ class FapespGUI(QMainWindow):
             widget_to_remove.setParent(None)
 
         resultados = buscar_oportunidades(CONFIG_PATH)
-        for item in resultados:
-            self.result_layout.addWidget(self.criar_card(item))
+        L=len(resultados)
+        for i, item in enumerate(resultados,1):
+            self.result_layout.addWidget(self.criar_card(item,i,L))
 
-    def criar_card(self, info):
+    def criar_card(self, info,ID,L):
         card = QFrame()
         layout = QVBoxLayout(card)
         layout.setContentsMargins(5, 3, 5, 3)
@@ -161,7 +162,7 @@ class FapespGUI(QMainWindow):
         common_style = "border: 0px solid #FFFFFF; border-radius: 0px; font-size: 11pt; margin: 0px; padding: 0px;"
 
         # Título
-        title = QLabel(f"<b>{info['title']}</b>")
+        title = QLabel(f"<b>{ID}/{L} - {info['title']}</b>")
         title.setWordWrap(True)
         title.adjustSize()
         #title.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
