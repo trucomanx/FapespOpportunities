@@ -5,7 +5,7 @@ import signal
 import subprocess
 from datetime import datetime
 from PyQt5.QtWidgets import (
-    QApplication, QWidget, QVBoxLayout, QHBoxLayout, QPushButton,
+    QApplication, QWidget, QVBoxLayout, QHBoxLayout, QPushButton, QMessageBox, 
     QLineEdit, QTextEdit, QLabel, QScrollArea, QFrame, QMainWindow, QAction, QToolBar
 )
 from PyQt5.QtCore import Qt
@@ -148,11 +148,22 @@ class FapespGUI(QMainWindow):
         for i in reversed(range(self.result_layout.count())):
             widget_to_remove = self.result_layout.itemAt(i).widget()
             widget_to_remove.setParent(None)
+        
+        try: 
+            resultados = buscar_oportunidades(CONFIG_PATH)
+            L=len(resultados)
+            for i, item in enumerate(resultados,1):
+                self.result_layout.addWidget(self.criar_card(item,i,L))
+        except Exception as e:
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Warning) # Ícone de advertência
+            msg.setWindowTitle("Atention")   # Título da janela
+            msg.setText("Error detected!")   # Texto principal
+            msg.setInformativeText(f"{e}")   # Texto adicional opcional
+            msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)  # Botões padrão
+            msg.setDefaultButton(QMessageBox.Ok)
+            retorno = msg.exec_()
 
-        resultados = buscar_oportunidades(CONFIG_PATH)
-        L=len(resultados)
-        for i, item in enumerate(resultados,1):
-            self.result_layout.addWidget(self.criar_card(item,i,L))
 
     def criar_card(self, info,ID,L):
         card = QFrame()

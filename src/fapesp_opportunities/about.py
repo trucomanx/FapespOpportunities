@@ -1,6 +1,6 @@
 # about.py
 
-__version__ = "0.1.3"
+__version__ = "0.1.4"
 __package__ = "fapesp_opportunities"
 __program_name__ = "fapesp-opportunities"
 __author__ = "Fernando Pujaico Rivera" 
