@@ -2,22 +2,6 @@
 
 Program to list FAPESP opportunities
 
-## Testar program
-
-```bash
-cd src
-python3 -m fapesp_opportunities.program
-```
-
-## Upload to PYPI
-
-```bash
-pip install --upgrade pkginfo twine packaging
-
-cd src
-python -m build
-twine upload dist/*
-```
 
 ## Install from PYPI
 
