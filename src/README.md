@@ -2,11 +2,11 @@
 
 Program to list FAPESP opportunities
 
-![logo](screenshot.png)
+![logo](https://raw.githubusercontent.com/trucomanx/FapespOpportunities/main/screenshot.png)
 
 ## 1. Installing
 
-To install the package from `PyPI`, follow the instructions below:
+To install the package from [PyPI](https://pypi.org/project/fapesp-opportunities/), follow the instructions below:
 
 
 ```bash
@@ -24,7 +24,7 @@ fapesp-opportunities
 ```
 ## 2. More information
 
-If you want more information [README.extras.md](https://github.com/trucomanx/FapespOpportunities/blob/main/README.extras.md)
+If you want more information go to [doc](https://github.com/trucomanx/FapespOpportunities/tree/main/doc) directory.
 
 ## 3. Buy me a coffee
 

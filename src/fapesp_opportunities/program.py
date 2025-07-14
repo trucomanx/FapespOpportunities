@@ -173,7 +173,8 @@ class FapespGUI(QMainWindow):
         common_style = "border: 0px solid #FFFFFF; border-radius: 0px; font-size: 11pt; margin: 0px; padding: 0px;"
 
         # Título
-        title = QLabel(f"<b>{ID}/{L} - {info['title']}</b>")
+        str_title=info['title']
+        title = QLabel(f"<b>{ID}/{L} - {str_title}</b>")
         title.setWordWrap(True)
         title.adjustSize()
         #title.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
@@ -182,7 +183,11 @@ class FapespGUI(QMainWindow):
         layout.addWidget(title)
 
         # Corpo
-        body = QLabel(f'{info["body"]} <a href="{info["link"]}">link</a>')
+        str_link=info["link"]
+        str_body=info["body"]
+        str_all=f'{str_body} <a href="{str_link}">link</a>'
+        str_all = str_all.replace("\n"," ")
+        body = QLabel(str_all)
         body.setWordWrap(True)
         body.setOpenExternalLinks(True)
         body.adjustSize()
