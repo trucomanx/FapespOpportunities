@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "fapesp_opportunities"
-version = "0.1.4"
+version = "0.1.5"
 description = "Program to list FAPESP opportunities"
 readme = "README.md"
 authors = [{name = "Fernando Pujaico Rivera", email = "fernando.pujaico.rivera@gmail.com"}]
@@ -16,7 +16,7 @@ classifiers = [
 ]
 license = "GPL-3.0-only WITH Classpath-Exception-2.0 OR BSD-3-Clause"
 license-files = ["LICENSE"]
-keywords = ["FAPESP", "scholarships", "grants", "research", "funding", "Brazil"]
+keywords = ["writing", "translate"]
 dependencies = [
     "PyQt5",
     "requests",
