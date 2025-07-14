@@ -107,6 +107,12 @@ class FapespGUI(QMainWindow):
         self.addToolBar(toolbar)
         toolbar.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
         
+        # Coffee
+        coffee_action = QAction(QIcon.fromTheme("emblem-favorite"),"Coffee", self)
+        coffee_action.triggered.connect(self.on_coffee_action_click)
+        coffee_action.setToolTip("Buy me a coffee (TrucomanX)")
+        toolbar.addAction(coffee_action)
+        
         # 
         about_action = QAction(QIcon.fromTheme("help-about"),"About", self)
         about_action.triggered.connect(self.open_about)
@@ -119,10 +125,16 @@ class FapespGUI(QMainWindow):
         oport_action.setToolTip("Open the FAPESP site with oportunities.")
         toolbar.addAction(oport_action)
 
+    ############################################################################
+    def on_coffee_action_click(self):
+        QDesktopServices.openUrl(QUrl("https://ko-fi.com/trucomanx"))
+    
+    ############################################################################
     def open_oportunities(self):
         conf = configure.load_config(CONFIG_PATH)
         QDesktopServices.openUrl(QUrl(conf["url"]))
 
+    ############################################################################
     def open_about(self):
         data={
             "version": about.__version__,
@@ -136,13 +148,15 @@ class FapespGUI(QMainWindow):
             "url_bugs": about.__url_bugs__
         }
         show_about_window(data,self.icon_path)
-        
+
+    ############################################################################
     def abrir_editor(self):
         if os.name == 'nt':  # Windows
             os.startfile(CONFIG_PATH)
         elif os.name == 'posix':  # Linux/macOS
             subprocess.run(['xdg-open', CONFIG_PATH])
 
+    ############################################################################
     def buscar(self):
         # Limpa resultados anteriores
         for i in reversed(range(self.result_layout.count())):
@@ -164,7 +178,7 @@ class FapespGUI(QMainWindow):
             msg.setDefaultButton(QMessageBox.Ok)
             retorno = msg.exec_()
 
-
+    ############################################################################
     def criar_card(self, info,ID,L):
         card = QFrame()
         layout = QVBoxLayout(card)
