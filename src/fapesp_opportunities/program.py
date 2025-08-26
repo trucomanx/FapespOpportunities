@@ -5,7 +5,7 @@ import signal
 import subprocess
 from datetime import datetime
 from PyQt5.QtWidgets import (
-    QApplication, QWidget, QVBoxLayout, QHBoxLayout, QPushButton, QMessageBox, 
+    QApplication, QWidget, QVBoxLayout, QHBoxLayout, QPushButton, QMessageBox, QMenu, 
     QLineEdit, QTextEdit, QLabel, QScrollArea, QFrame, QMainWindow, QAction, QToolBar
 )
 from PyQt5.QtCore import Qt
@@ -13,7 +13,7 @@ from PyQt5.QtGui import QIcon
 from PyQt5.QtGui import QDesktopServices, QTextOption
 from PyQt5.QtWidgets import QSizePolicy
 from PyQt5.QtGui import QDesktopServices
-from PyQt5.QtCore import QUrl
+from PyQt5.QtCore import QUrl, QTimer
 
 import fapesp_opportunities.modules.configure as configure 
 import fapesp_opportunities.modules.fapesp as fapesp
@@ -42,6 +42,12 @@ def buscar_oportunidades(config_path):
         total_list,
         key=lambda d: datetime.strptime(d["end-date"], "%d/%m/%Y") if d.get("end-date") else datetime.max
     )
+    
+    id_list = conf["avoid_ids"]
+
+    # id_list é a lista de números que queremos remover
+    lista_ordenada = [el for el in lista_ordenada if el.get("id") not in id_list]
+    
     return lista_ordenada
 
 # Widget principal
@@ -179,6 +185,16 @@ class FapespGUI(QMainWindow):
             retorno = msg.exec_()
 
     ############################################################################
+    def hide_card(self,info):
+        print(info["id"])
+        conf = configure.load_config(CONFIG_PATH)
+        conf["avoid_ids"].append(info["id"])
+        
+        configure.save_config(CONFIG_PATH,conf)
+        
+        # Atualiza a lista depois do evento atual
+        QTimer.singleShot(0, self.buscar)
+        
     def criar_card(self, info,ID,L):
         card = QFrame()
         layout = QVBoxLayout(card)
@@ -186,47 +202,69 @@ class FapespGUI(QMainWindow):
         layout.setSpacing(0)
         common_style = "border: 0px solid #FFFFFF; border-radius: 0px; font-size: 11pt; margin: 0px; padding: 0px;"
 
+        # Linha horizontal para título + botão de menu
+        title_layout = QHBoxLayout()
+        title_layout.setContentsMargins(0,0,0,0)
+
         # Título
-        str_title=info['title']
-        ID=info['id']
-        title = QLabel(f"<b>{ID}/{L} - {str_title} - {ID}</b>")
+        str_title = info['title']
+        id_number = info["id"]
+        title = QLabel(f"<b>{ID}/{L} - {str_title} - {id_number}</b>")
         title.setWordWrap(True)
-        title.adjustSize()
-        #title.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
+        #title.adjustSize()
+        title.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
         title.setTextInteractionFlags(Qt.TextSelectableByMouse)
-        title.setStyleSheet("color: #000000; "+common_style)
-        layout.addWidget(title)
+        title.setStyleSheet("color: #000000; " + common_style)
+        title_layout.addWidget(title)
+
+        # Botão de menu (pequeno, numa quina)
+        menu_btn = QPushButton("⋮")
+        menu_btn.setFixedSize(20, 20)
+        menu_btn.setStyleSheet("QPushButton { border: none; font-weight: bold; }")
+        menu_btn.setCursor(Qt.PointingHandCursor)
+
+        # Cria menu de contexto
+        menu = QMenu()
+        action_ocultar = menu.addAction("Hide")
+        action_ocultar.triggered.connect(lambda checked, info=info: self.hide_card(info))
+
+        # Faz botão abrir o menu
+        menu_btn.setMenu(menu)
+
+        title_layout.addWidget(menu_btn, alignment=Qt.AlignRight)
+
+        layout.addLayout(title_layout)
 
         # Corpo
-        str_link=info["link"]
-        str_body=info["body"]
-        str_all=f'{str_body} <a href="{str_link}">link</a>'
-        str_all = str_all.replace("\n"," ")
+        str_link = info["link"]
+        str_body = info["body"]
+        str_all = f'{str_body} <a href="{str_link}">link</a>'
+        str_all = str_all.replace("\n", " ")
         body = QLabel(str_all)
         body.setWordWrap(True)
         body.setOpenExternalLinks(True)
-        body.adjustSize()
-        #body.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
+        #body.adjustSize()
+        ## body.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
         body.setTextInteractionFlags(Qt.TextSelectableByMouse | Qt.LinksAccessibleByMouse)
-        body.setStyleSheet("color: #333333; background-color: #FFFFFF; "+common_style)
+        body.setStyleSheet("color: #333333; background-color: #FFFFFF; " + common_style)
         layout.addWidget(body)
 
         # Local
         location = QLabel(f"<i>{info['city']} - {info['institute']}</i>")
         location.setWordWrap(True)
-        location.adjustSize()
-        #location.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
+        #location.adjustSize()
+        ## location.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
         location.setTextInteractionFlags(Qt.TextSelectableByMouse)
-        location.setStyleSheet("color: #333333; background-color: #FFFFFF; "+common_style)
+        location.setStyleSheet("color: #333333; background-color: #FFFFFF; " + common_style)
         layout.addWidget(location)
 
         # Data final
         end_date = QLabel(f"<i>End date: {info['end-date']}</i>")
         end_date.setWordWrap(True)
-        end_date.adjustSize()
-        #end_date.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
+        #end_date.adjustSize()
+        ## end_date.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
         end_date.setTextInteractionFlags(Qt.TextSelectableByMouse)
-        end_date.setStyleSheet("color: #333333; background-color: #FFFFFF; "+common_style)
+        end_date.setStyleSheet("color: #333333; background-color: #FFFFFF; " + common_style)
         layout.addWidget(end_date)
 
         card.setStyleSheet("""
@@ -242,6 +280,7 @@ class FapespGUI(QMainWindow):
         card.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
 
         return card
+
 
     
 def main():
