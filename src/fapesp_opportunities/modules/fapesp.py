@@ -114,6 +114,10 @@ def parse_opportunity(li_html, base_url="https://fapesp.br"):
     link_tag = soup.find('a', class_='link_col')
     href = link_tag.get('href', '') if link_tag else ''
     link = base_url + href if href.startswith('/') else href
+    
+    # ID
+    id_number = link.strip("/").split("/")[-1]
+    id_number = int(id_number)
 
     # City
     full_text = soup.get_text(" ", strip=True)
@@ -137,6 +141,7 @@ def parse_opportunity(li_html, base_url="https://fapesp.br"):
         "title": title,
         "body": body,
         "link": link,
+        "id": id_number,
         "end-date": end_date,
         "city": city,
         "institute": institute

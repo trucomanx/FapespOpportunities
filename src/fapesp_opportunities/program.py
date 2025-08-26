@@ -188,7 +188,8 @@ class FapespGUI(QMainWindow):
 
         # Título
         str_title=info['title']
-        title = QLabel(f"<b>{ID}/{L} - {str_title}</b>")
+        ID=info['id']
+        title = QLabel(f"<b>{ID}/{L} - {str_title} - {ID}</b>")
         title.setWordWrap(True)
         title.adjustSize()
         #title.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
