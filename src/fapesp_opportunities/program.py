@@ -33,9 +33,25 @@ def buscar_oportunidades(config_path):
     conf = configure.load_config(config_path)
     
     opportunities = fapesp.get_open_opportunities(url=conf["url"])
-    opportunities = fapesp.filter_grants_by_title(opportunities, conf["title-contents"])
-    opportunities = fapesp.filter_grants_by_content(opportunities, conf["body-contents"])
     
+    ########
+    # TITLE 
+    opportunities = fapesp.filter_grants_by_title(opportunities, conf["title-contents"]) #OR
+    #for el in opportunities:
+    #    print(">>>")
+    #    print(el)
+    # AND
+    opportunities = fapesp.filter_grants_by_title(opportunities, conf["title-contents-filters"]) #OR
+    
+    # AND
+    
+    ########
+    # BODY
+    opportunities = fapesp.filter_grants_by_content(opportunities, conf["body-contents"])
+
+    
+    ########
+    # FINAL
     total_list = fapesp.parse_opportunities(opportunities, base_url="https://fapesp.br")
     
     lista_ordenada = sorted(
@@ -186,7 +202,6 @@ class FapespGUI(QMainWindow):
 
     ############################################################################
     def hide_card(self,info):
-        print(info["id"])
         conf = configure.load_config(CONFIG_PATH)
         conf["avoid_ids"].append(info["id"])
         

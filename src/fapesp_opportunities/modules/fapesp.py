@@ -47,14 +47,17 @@ def filter_grants_by_title(lista_li_html, contents):
     if len(contents) == 0:
         return lista_li_html
 
+    # Normaliza os conteúdos para minúsculas
+    contents_lower = [kw.lower() for kw in contents]
+
     filtered_result = []
 
     for li_html in lista_li_html:
         soup = BeautifulSoup(li_html, 'html.parser')
         title_tag = soup.find('strong', class_='title')
         if title_tag:
-            title_text = title_tag.get_text()
-            if any(keyword in title_text for keyword in contents):
+            title_text = title_tag.get_text().lower()  # Normaliza o título
+            if any(keyword in title_text for keyword in contents_lower):
                 filtered_result.append(li_html)
 
     return filtered_result

@@ -3,8 +3,9 @@ import json
 
 DEFAULT_CONTENT = {
     "url": "https://fapesp.br/oportunidades/mais-recentes/",
-    "title-contents": ["Bolsa de PD"],
-    "body-contents": ["computação", "elétrica", "neural", "neurais", "sinais", "machine learning"],
+    "title-contents": ["Bolsa de PD", "Bolsas de PD"],
+    "title-contents-filters": ["neurais","visão"],
+    "body-contents": ["neurais","visão","computação", "elétrica", "neural",  "sinais", "machine learning"],
     "avoid_ids":[]
 }
 
