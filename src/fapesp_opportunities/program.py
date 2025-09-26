@@ -23,7 +23,7 @@ from fapesp_opportunities.desktop import create_desktop_file, create_desktop_dir
 from fapesp_opportunities.modules.wabout  import show_about_window
 
 # Caminho para o arquivo de configuração
-CONFIG_PATH = os.path.expanduser("~/.config/fapesp_opportunities/config.json")
+CONFIG_PATH = os.path.expanduser(os.path.join("~",".config","fapesp_opportunities","config.json"))
 configure.verify_default_config(CONFIG_PATH)
 
 
@@ -303,18 +303,18 @@ def main():
     
     create_desktop_directory()    
     create_desktop_menu()
-    create_desktop_file('~/.local/share/applications')
+    create_desktop_file(os.path.join("~",".local","share","applications"))
     
     for n in range(len(sys.argv)):
         if sys.argv[n] == "--autostart":
             create_desktop_directory(overwrite = True)
             create_desktop_menu(overwrite = True)
-            create_desktop_file('~/.config/autostart', overwrite=True)
+            create_desktop_file(os.path.join("~",".config","autostart"), overwrite=True)
             return
         if sys.argv[n] == "--applications":
             create_desktop_directory(overwrite = True)
             create_desktop_menu(overwrite = True)
-            create_desktop_file('~/.local/share/applications', overwrite=True)
+            create_desktop_file(os.path.join("~",".local","share","applications"), overwrite=True)
             return
     
     app = QApplication(sys.argv)
