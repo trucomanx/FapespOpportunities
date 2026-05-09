@@ -3,8 +3,18 @@ import json
 
 DEFAULT_CONTENT = {
     "url": "https://fapesp.br/oportunidades/mais-recentes/",
-    "title-contents": ["Bolsa de PD", "Bolsas de PD"],
-    "title-contents-filters": ["neurais","visão"],
+    "title-contents": [ "Bolsas de Iniciação Científica", 
+                        "Bolsa de JC-II",
+                        "Bolsa de JC-III",
+                        "Bolsa de JC-IV",
+                        "Bolsa de TT-II", 
+                        "Bolsa de TT-III", 
+                        "Bolsa de TT-IV", 
+                        "Bolsa de Mestrado", 
+                        "Bolsa de Doutorado", 
+                        "Bolsa de PD", 
+                        "Bolsas de PD" ],
+    "title-contents-filters": ["neurais","visão", "medicina", "computação", "remoto"],
     "body-contents": ["neurais","visão","computação", "elétrica", "neural",  "sinais", "machine learning"],
     "avoid_ids":[]
 }
