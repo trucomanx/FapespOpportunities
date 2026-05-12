@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "fapesp_opportunities"
-version = "0.1.11"
+version = "0.1.12"
 description = "Program to list FAPESP opportunities"
 readme = "README.md"
 authors = [{name = "Fernando Pujaico Rivera", email = "fernando.pujaico.rivera@gmail.com"}]
@@ -24,9 +24,9 @@ dependencies = [
 ]
 
 [project.urls]
-"Bug Reports" = "https://github.com/trucomanx/FapespOpportunities/issues"
+"Bug Reports" = "https://github.com/trucomanx-desktop/FapespOpportunities/issues"
 "Funding" = "https://trucomanx.github.io/en/funding.html"
-"Source" = "https://github.com/trucomanx/FapespOpportunities"
+"Source" = "https://github.com/trucomanx-desktop/FapespOpportunities"
 
 [project.scripts]
 "fapesp-opportunities" = "fapesp_opportunities.program:main"
@@ -35,4 +35,4 @@ dependencies = [
 packages = ["fapesp_opportunities", "fapesp_opportunities.modules"]
 
 [tool.setuptools.package-data]
-"fapesp_opportunities" = ["icons/logo.png"]
+"fapesp_opportunities" = ["icons/*.png"]

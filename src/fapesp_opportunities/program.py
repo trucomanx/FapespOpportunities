@@ -19,11 +19,17 @@ import fapesp_opportunities.modules.configure as configure
 import fapesp_opportunities.modules.fapesp as fapesp
 import fapesp_opportunities.about as about
 
-from fapesp_opportunities.desktop import create_desktop_file, create_desktop_directory, create_desktop_menu
-from fapesp_opportunities.modules.wabout  import show_about_window
+from fapesp_opportunities.desktop import create_desktop_file
+from fapesp_opportunities.desktop import create_desktop_directory
+from fapesp_opportunities.desktop import create_desktop_menu
+from fapesp_opportunities.modules.wabout    import show_about_window
+from fapesp_opportunities.modules.resources import resource_path
 
 # Caminho para o arquivo de configuração
-CONFIG_PATH = os.path.expanduser(os.path.join("~",".config","fapesp_opportunities","config.json"))
+CONFIG_PATH = os.path.join(os.path.expanduser("~"),
+                            ".config",
+                            about.__package__,
+                            "config.json")
 configure.verify_default_config(CONFIG_PATH)
 
 
@@ -75,8 +81,7 @@ class FapespGUI(QMainWindow):
 
         ## Icon
         # Get base directory for icons
-        base_dir_path = os.path.dirname(os.path.abspath(__file__))
-        self.icon_path = os.path.join(base_dir_path, 'icons', 'logo.png')
+        self.icon_path = resource_path('icons', 'logo.png')
         self.setWindowIcon(QIcon(self.icon_path)) 
         
         # 
@@ -130,19 +135,19 @@ class FapespGUI(QMainWindow):
         toolbar.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
         
         # Coffee
-        coffee_action = QAction(QIcon.fromTheme("emblem-favorite"),"Coffee", self)
+        coffee_action = QAction(QIcon(resource_path('icons', 'emote-love.png')),"Coffee", self)
         coffee_action.triggered.connect(self.on_coffee_action_click)
         coffee_action.setToolTip("Buy me a coffee (TrucomanX)")
         toolbar.addAction(coffee_action)
         
         # 
-        about_action = QAction(QIcon.fromTheme("help-about"),"About", self)
+        about_action = QAction(QIcon(resource_path('icons', 'status_help.png')),"About", self)
         about_action.triggered.connect(self.open_about)
         about_action.setToolTip("Show the information of program.")
         toolbar.addAction(about_action)
         
         # 
-        oport_action = QAction(QIcon.fromTheme("applications-internet"),"Oportunities", self)
+        oport_action = QAction(QIcon(resource_path('icons', 'web-browser.png')),"Oportunities", self)
         oport_action.triggered.connect(self.open_oportunities)
         oport_action.setToolTip("Open the FAPESP site with oportunities.")
         toolbar.addAction(oport_action)

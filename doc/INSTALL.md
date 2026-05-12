@@ -21,7 +21,7 @@ fapesp-opportunities
 Installing `fapesp-opportunities` program
 
 ```bash
-git clone https://github.com/trucomanx/FapespOpportunities.git
+git clone https://github.com/trucomanx-desktop/FapespOpportunities.git
 cd FapespOpportunities
 pip install -r requirements.txt
 cd src

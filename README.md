@@ -24,7 +24,7 @@ fapesp-opportunities
 ```
 ## 2. More information
 
-If you want more information go to [doc](https://github.com/trucomanx/FapespOpportunities/tree/main/doc) directory.
+If you want more information go to [doc](https://github.com/trucomanx-desktop/FapespOpportunities/tree/main/doc) directory.
 
 ## 3. Buy me a coffee
 
